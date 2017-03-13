@@ -1,13 +1,14 @@
-package drawing.domain;
+package drawing.domain.Drawingitems;
 
 import drawing.domain.Interfaces.IPaintable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Ken
  */
-public class Drawing {
+public class Drawing implements Serializable {
 
     private String name;
     public ArrayList<DrawingItem> items;

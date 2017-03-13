@@ -1,4 +1,6 @@
-package drawing.domain;
+package drawing.domain.Drawingitems;
+
+import drawing.domain.Point;
 
 import java.util.Comparator;
 

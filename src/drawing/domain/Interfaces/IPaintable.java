@@ -1,11 +1,9 @@
 package drawing.domain.Interfaces;
 
-import drawing.domain.Image;
-import drawing.domain.Oval;
-import drawing.domain.PaintedText;
-import drawing.domain.Polygon;
-
-import java.awt.*;
+import drawing.domain.Drawingitems.Image;
+import drawing.domain.Drawingitems.Oval;
+import drawing.domain.Drawingitems.PaintedText;
+import drawing.domain.Drawingitems.Polygon;
 
 /**
  * Created by Ken

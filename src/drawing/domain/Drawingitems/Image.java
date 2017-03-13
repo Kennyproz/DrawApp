@@ -1,6 +1,8 @@
-package drawing.domain;
+package drawing.domain.Drawingitems;
 
+import drawing.domain.Enums.Color;
 import drawing.domain.Interfaces.IPaintable;
+import drawing.domain.Point;
 
 import java.io.File;
 
@@ -8,7 +10,7 @@ import java.io.File;
 /**
  * Created by Ken
  */
-public class Image extends DrawingItem  {
+public class Image extends DrawingItem {
     private File file;
     private Point anchor;
     private double width;
@@ -35,6 +37,7 @@ public class Image extends DrawingItem  {
     public void setHeight(double height) {
         this.height = height;
     }
+
     public void setAnchor(Point anchor) {
         this.anchor = anchor;
     }

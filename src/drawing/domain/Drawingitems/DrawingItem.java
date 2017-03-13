@@ -1,13 +1,16 @@
-package drawing.domain;
+package drawing.domain.Drawingitems;
 
+import drawing.domain.Enums.Color;
 import drawing.domain.Interfaces.IPaintable;
+import drawing.domain.Point;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * Created by Ken
  */
-public abstract class DrawingItem implements Comparator<DrawingItem>{
+public abstract class DrawingItem implements Comparator<DrawingItem>, Serializable{
 
     private Color color;
     protected DrawingItem previousState;

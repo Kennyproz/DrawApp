@@ -1,9 +1,11 @@
 package drawing.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Ken
  */
-public class Point {
+public class Point implements Serializable{
     public double getX() {
         return x;
     }

@@ -1,6 +1,8 @@
-package drawing.domain;
+package drawing.domain.Drawingitems;
 
+import drawing.domain.Enums.Color;
 import drawing.domain.Interfaces.IPaintable;
+import drawing.domain.Point;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package drawing.domain;
+package drawing.domain.Enums;
 
 /**
  * Created by Ken
