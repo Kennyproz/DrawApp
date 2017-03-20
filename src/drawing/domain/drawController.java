@@ -29,21 +29,37 @@ public class drawController implements Initializable {
 
     @FXML private Canvas canvas;
     @FXML private ComboBox cbDrawingitems;
+    @FXML private ComboBox cbPaintedItems;
     @FXML private TextField tbWidth;
     @FXML private TextField tbHeight;
+    @FXML private TextField tbText;
     @FXML private Button btnAdd;
+    @FXML private Button btnClear;
+    @FXML private Button btnRemove;
+
     Point point;
 
     private GraphicsContext graphicsContext;
     private Drawing drawing;
 
+    public void clear(){
+        graphicsContext.clearRect(0,0, canvas.getWidth(),canvas.getHeight());
+        drawing.getItems().removeAll(drawing.getItems());
+    }
     public void draw (){
         graphicsContext.clearRect(0,0, canvas.getWidth(),canvas.getHeight());
         drawing.paintUsing(new JavaFXPaintable(graphicsContext));
+        fillItemList();
+    }
+    public void removeItem(){
+        drawing.getItems().remove((DrawingItem)(cbPaintedItems.getSelectionModel().getSelectedItem()));
+        graphicsContext.clearRect(0,0, canvas.getWidth(),canvas.getHeight());
+        drawing.paintUsing(new JavaFXPaintable(graphicsContext));
+        fillItemList();
     }
 
-    public void drawItem(){
-        point = new Point(120,120);
+    public void drawItem(MouseEvent me){
+        point = new Point(me.getX(),me.getY());
         double width;
         double height;
         if (tbWidth.getText() != "")
@@ -71,7 +87,7 @@ public class drawController implements Initializable {
                     drawing.addDrawing(oval);
                     break;
                 case "PaintedText":
-                    PaintedText paintedText = new PaintedText(Color.BLACK,"Lorum Ipsuum test","Arial",point,width,height);
+                    PaintedText paintedText = new PaintedText(Color.BLACK,tbText.getText(),"Arial",point,width,height);
                     drawing.addDrawing(paintedText);
                     break;
                 case "Image":
@@ -95,27 +111,40 @@ public class drawController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         drawing = new Drawing();
-        fillLists();
+        fillTypeList();
 
 
-/*        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+       canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println(event.getX());
                 System.out.println(event.getY());
-                point = new Point(event.getX(),event.getY());
-                drawItem(Double.parseDouble(tbWidth.toString()),Double.parseDouble(tbHeight.toString()));
+                drawItem(event);
             }
-        });*/
+        });
     }
 
-    private void fillLists(){
+    private void fillTypeList(){
         cbDrawingitems.getItems().removeAll(cbDrawingitems.getItems());
-
         cbDrawingitems.getItems().add("Oval");
         cbDrawingitems.getItems().add("PaintedText");
         cbDrawingitems.getItems().add("Image");
         cbDrawingitems.getItems().add("Polygon");
         cbDrawingitems.getItems().add("Drawing");
+
     }
+    private void fillItemList(){
+        cbPaintedItems.getItems().removeAll(cbPaintedItems.getItems());
+        if (drawing.getItems().size() > 0 ){
+            for (DrawingItem item : drawing.getItems()){
+                cbPaintedItems.getItems().add(item);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+
 }
