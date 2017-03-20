@@ -1,19 +1,15 @@
-package drawing.domain.Drawingitems;
+package drawing.domain;
 
-import drawing.domain.DatabaseMediator;
-import drawing.domain.Enums.Color;
-import drawing.domain.JavaFXPaintable;
-import drawing.domain.Point;
-import drawing.domain.SerializationMediator;
-import javafx.scene.Group;
+import drawing.domain.Drawingitems.Drawing;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
+import java.awt.MouseInfo;
 
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Ken
@@ -26,12 +22,16 @@ public class DrawingTool extends javafx.application.Application{
     private JavaFXPaintable paintable;
     private Drawing drawing;
 
-
     public static void drawingTool(String[] args) {
+
         launch(args);
     }
 
     public DrawingTool() throws IOException {
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 
     /**
@@ -82,19 +82,21 @@ public class DrawingTool extends javafx.application.Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("Ken's Drawing application");
-        Group root = new Group();
+        Parent root =  FXMLLoader.load(getClass().getResource("drawForm.fxml"));
+        primaryStage.setTitle("DrawApp");
 
-        Drawing drawing = new Drawing();
-        Canvas canvas = new Canvas(700,700);
+        primaryStage.setScene(new Scene(root, 700,600));
 
-        sm = new SerializationMediator();
-        dm = new DatabaseMediator();
+       // Drawing drawing = new Drawing();
 
-        //Point paintedtextPoint = new Point(160,40);
-        //PaintedText paintedText = new PaintedText(Color.BLACK,"Lorum Ipsum test","Arial",paintedtextPoint,100,100);
 
-/*        Point ovalPoint = new Point(20,20);
+       // sm = new SerializationMediator();
+       // dm = new DatabaseMediator();
+/*
+        Point paintedtextPoint = new Point(160,40);
+        PaintedText paintedText = new PaintedText(Color.BLACK,"Lorum Ipsum test","Arial",paintedtextPoint,100,100);
+
+        Point ovalPoint = new Point(20,20);
         Oval oval = new Oval(Color.BLACK,ovalPoint,50,50,40);
 
         Point imagePoint = new Point(15,200);
@@ -127,38 +129,38 @@ public class DrawingTool extends javafx.application.Application{
             // Collections.sort(drawing.items, new DrawingItemComparator());
         }*/
 
-        DrawingTool dt = new DrawingTool(drawing, new JavaFXPaintable(canvas.getGraphicsContext2D()));
-       // drawing.setName("D1");
+   //     DrawingTool dt = new DrawingTool(drawing, new JavaFXPaintable(canvas.getGraphicsContext2D()));
+     //   drawing.setName("D1");
 
-
-
-/*        try{
-           dt.drawing =  sm.load("DTest");
+    /*   try{
+           dt.drawing =  sm.load("D1");
         }
         catch (Exception ex){
            ex.printStackTrace();
-        }*/
-        try{
-           dt.drawing = dm.load("D1");
+        }
+
+       /*try{
+           dt.drawing = dm.load("D2");
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
+*/
+        /*
+        dt.drawing.setName("D2");
+        Point paintedtextPoint = new Point(370,60);
+        PaintedText paintedText = new PaintedText(Color.BLACK,"Opgehaald database","Arial",paintedtextPoint,100,100);
+        dt.drawing.addDrawing(paintedText);*/
 
-      //  dt.drawing.setName("D2");
-      //  Point paintedtextPoint = new Point(370,60);
-      //  PaintedText paintedText = new PaintedText(Color.BLACK,"Opgehaald database","Arial",paintedtextPoint,100,100);
-
-        //dt.drawing.addDrawing(paintedText);
-       // dt.drawing.setName("D1");
-        dt.draw();
+     //   dt.draw();
 
 
-       // sm.save(drawing);
-       // dm.save(drawing);
-        root.getChildren().add(canvas);
-        primaryStage.setTitle("DrawApp");
-        primaryStage.setScene(new Scene(root));
+      //  sm.save(dt.drawing);
+    //    dt.drawing.setName("D2");
+
+       // dm.save(dt.drawing);
+      //  root.getChildren().add(canvas);
+
         primaryStage.show();
     }
 }

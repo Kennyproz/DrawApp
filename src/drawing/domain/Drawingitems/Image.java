@@ -90,14 +90,5 @@ public class Image extends DrawingItem {
                 ", height=" + height +
                 '}';
     }
-    @Override
-    public int compare(DrawingItem itemOne, DrawingItem itemTwo) {
-        boolean points = itemOne.getAnchor().equals(itemTwo.getAnchor());
-        if (points)
-        {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-}}
+
+}

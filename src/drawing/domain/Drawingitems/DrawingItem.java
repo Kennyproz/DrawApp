@@ -10,7 +10,7 @@ import java.util.Comparator;
 /**
  * Created by Ken
  */
-public abstract class DrawingItem implements Comparator<DrawingItem>, Serializable{
+public abstract class DrawingItem implements Serializable {
 
     private Color color;
     protected DrawingItem previousState;
@@ -34,6 +34,10 @@ public abstract class DrawingItem implements Comparator<DrawingItem>, Serializab
     public void setColor(DrawingItem previousState, Color color) {
         this.previousState = previousState;
         this.color = color;
+    }
+
+    public DrawingItem() {
+        color = Color.BLACK;
     }
 
     /**

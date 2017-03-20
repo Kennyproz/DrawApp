@@ -1,38 +1,50 @@
 package drawing.domain.Drawingitems;
 
+import drawing.domain.Enums.Color;
 import drawing.domain.Interfaces.IPaintable;
+import drawing.domain.Point;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ken
  */
-public class Drawing implements Serializable {
+public class Drawing extends DrawingItem implements Serializable {
 
     private String name;
-    public ArrayList<DrawingItem> items;
+    private List<DrawingItem> items;
+    private ObservableList<DrawingItem> observableList;
 
     /**
      * Constructor for drawing
      */
     public Drawing() {
         items = new ArrayList<>();
+        observableList = FXCollections.observableList(items);
     }
 
     /**
      * Get drawingitems for drawing
      * @return
      */
-    public ArrayList<DrawingItem> getItems() {
+    public List<DrawingItem> getItems() {
         return items;
+    }
+
+    public ObservableList<DrawingItem> itemsToObserve() {
+        return FXCollections.
+                unmodifiableObservableList(observableList);
     }
 
     /**
      * Set item for drawing
      * @param items
      */
-    public void setItems(ArrayList<DrawingItem> items) {
+    public void setItems(List<DrawingItem> items) {
         this.items = items;
     }
 
@@ -45,6 +57,7 @@ public class Drawing implements Serializable {
     }
 
     /**
+     *
      * Set name for drawing
      * @param name
      */
@@ -61,6 +74,21 @@ public class Drawing implements Serializable {
     }
     public boolean removeDrawing(DrawingItem item){
          return items.remove(item);
+    }
+
+    @Override
+    protected Point getAnchor() {
+        return null;
+    }
+
+    @Override
+    protected double getWidth() {
+        return 0;
+    }
+
+    @Override
+    protected double getHeight() {
+        return 0;
     }
 
     public void paintUsing(IPaintable paintable){

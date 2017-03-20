@@ -38,14 +38,21 @@ public class DatabaseMediator implements PersistencyMediator {
 
     @Override
     public Drawing load(String nameDrawing) throws SQLException, IOException, ClassNotFoundException {
+        //PreparedStatement myStmt;
         Statement myStmt;
         ResultSet myRs;
         initConnection();
         myConn = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi357714", "dbi357714", "P@ssw0rd");
-        System.out.println("Database connection succesful!1\n");
+        System.out.println("Database connection succesfull!!\n");
         try {
+          //  String sqlSelect = "SELECT DrawingItem FROM Drawing WHERE DrawingName = ?" ;
+          //  PreparedStatement preparedStatement = myConn.prepareStatement(sqlSelect);
+          //  preparedStatement.setString(1,nameDrawing);
+            //  myRs = preparedStatement.executeQuery(sqlSelect);
+
             myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery("Select DrawingItem FROM Drawing WHERE DrawingName ='" + nameDrawing+ "';");
+
 
             byte[] drawingBytes;
 
@@ -53,6 +60,7 @@ public class DatabaseMediator implements PersistencyMediator {
                 drawingBytes = (byte[])myRs.getObject(1);
                 ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(drawingBytes);
                 ObjectInputStream objInputStream = new ObjectInputStream(arrayInputStream);
+
                 Drawing drawing = (Drawing)objInputStream.readObject();
                 return drawing;
             }
